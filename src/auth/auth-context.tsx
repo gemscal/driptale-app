@@ -61,8 +61,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       await firebaseSignOut(auth);
     } catch (err) {
-      const message =
-        err instanceof Error ? err.message : "Failed to sign out";
+      const message = err instanceof Error ? err.message : "Failed to sign out";
       setState((prev) => ({ ...prev, error: message }));
     }
   }, []);
