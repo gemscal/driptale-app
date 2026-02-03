@@ -9,9 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as legalRouteRouteImport } from './routes/(legal)/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthSignInRouteImport } from './routes/auth/sign-in'
+import { Route as legalTermsOfServiceRouteImport } from './routes/(legal)/terms-of-service'
+import { Route as legalPrivacyPolicyRouteImport } from './routes/(legal)/privacy-policy'
 
+const legalRouteRoute = legalRouteRouteImport.update({
+  id: '/(legal)',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -22,35 +29,66 @@ const AuthSignInRoute = AuthSignInRouteImport.update({
   path: '/auth/sign-in',
   getParentRoute: () => rootRouteImport,
 } as any)
+const legalTermsOfServiceRoute = legalTermsOfServiceRouteImport.update({
+  id: '/terms-of-service',
+  path: '/terms-of-service',
+  getParentRoute: () => legalRouteRoute,
+} as any)
+const legalPrivacyPolicyRoute = legalPrivacyPolicyRouteImport.update({
+  id: '/privacy-policy',
+  path: '/privacy-policy',
+  getParentRoute: () => legalRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/privacy-policy': typeof legalPrivacyPolicyRoute
+  '/terms-of-service': typeof legalTermsOfServiceRoute
   '/auth/sign-in': typeof AuthSignInRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/privacy-policy': typeof legalPrivacyPolicyRoute
+  '/terms-of-service': typeof legalTermsOfServiceRoute
   '/auth/sign-in': typeof AuthSignInRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/(legal)': typeof legalRouteRouteWithChildren
+  '/(legal)/privacy-policy': typeof legalPrivacyPolicyRoute
+  '/(legal)/terms-of-service': typeof legalTermsOfServiceRoute
   '/auth/sign-in': typeof AuthSignInRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth/sign-in'
+  fullPaths: '/' | '/privacy-policy' | '/terms-of-service' | '/auth/sign-in'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth/sign-in'
-  id: '__root__' | '/' | '/auth/sign-in'
+  to: '/' | '/privacy-policy' | '/terms-of-service' | '/auth/sign-in'
+  id:
+    | '__root__'
+    | '/'
+    | '/(legal)'
+    | '/(legal)/privacy-policy'
+    | '/(legal)/terms-of-service'
+    | '/auth/sign-in'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  legalRouteRoute: typeof legalRouteRouteWithChildren
   AuthSignInRoute: typeof AuthSignInRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/(legal)': {
+      id: '/(legal)'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof legalRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -65,11 +103,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSignInRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/(legal)/terms-of-service': {
+      id: '/(legal)/terms-of-service'
+      path: '/terms-of-service'
+      fullPath: '/terms-of-service'
+      preLoaderRoute: typeof legalTermsOfServiceRouteImport
+      parentRoute: typeof legalRouteRoute
+    }
+    '/(legal)/privacy-policy': {
+      id: '/(legal)/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof legalPrivacyPolicyRouteImport
+      parentRoute: typeof legalRouteRoute
+    }
   }
 }
 
+interface legalRouteRouteChildren {
+  legalPrivacyPolicyRoute: typeof legalPrivacyPolicyRoute
+  legalTermsOfServiceRoute: typeof legalTermsOfServiceRoute
+}
+
+const legalRouteRouteChildren: legalRouteRouteChildren = {
+  legalPrivacyPolicyRoute: legalPrivacyPolicyRoute,
+  legalTermsOfServiceRoute: legalTermsOfServiceRoute,
+}
+
+const legalRouteRouteWithChildren = legalRouteRoute._addFileChildren(
+  legalRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  legalRouteRoute: legalRouteRouteWithChildren,
   AuthSignInRoute: AuthSignInRoute,
 }
 export const routeTree = rootRouteImport

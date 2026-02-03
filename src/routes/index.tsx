@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { RequireAuth } from "@/auth/require-auth";
 
 export const Route = createFileRoute("/")({
   component: IndexComponent,
@@ -7,7 +6,6 @@ export const Route = createFileRoute("/")({
 
 function IndexComponent() {
   return (
-    <RequireAuth>
     <div className="space-y-6">
       <h1 className="text-3xl font-bold tracking-tight text-foreground">
         Welcome to Driptale
@@ -24,6 +22,5 @@ function IndexComponent() {
         </p>
       </div>
     </div>
-    </RequireAuth>
   );
 }
