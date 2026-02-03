@@ -1,0 +1,35 @@
+import { createFileRoute, Outlet } from "@tanstack/react-router";
+import { useAuth } from "@/auth/auth-context";
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/sidebar/app-sidebar";
+import { Separator } from "@/components/ui/separator";
+
+export const Route = createFileRoute("/(features)")({
+  component: FeaturesLayout,
+});
+
+function FeaturesLayout() {
+  const { user } = useAuth();
+
+  return (
+    <SidebarProvider>
+      <AppSidebar user={user!} />
+      <SidebarInset>
+        <header className="bg-background sticky top-0 flex h-16 shrink-0 items-center gap-2 border-b px-4 z-10">
+          <SidebarTrigger className="-ml-1" />
+          <Separator
+            orientation="vertical"
+            className="mr-2 data-[orientation=vertical]:h-4 data-[orientation=vertical]:self-center"
+          />
+        </header>
+        <div className="container mx-auto px-4 py-8 max-w-7xl">
+          <Outlet />
+        </div>
+      </SidebarInset>
+    </SidebarProvider>
+  );
+}

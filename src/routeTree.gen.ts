@@ -10,19 +10,27 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as legalRouteRouteImport } from './routes/(legal)/route'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as featuresRouteRouteImport } from './routes/(features)/route'
+import { Route as featuresIndexRouteImport } from './routes/(features)/index'
 import { Route as AuthSignInRouteImport } from './routes/auth/sign-in'
 import { Route as legalTermsOfServiceRouteImport } from './routes/(legal)/terms-of-service'
 import { Route as legalPrivacyPolicyRouteImport } from './routes/(legal)/privacy-policy'
+import { Route as featuresWardrobeRouteImport } from './routes/(features)/wardrobe'
+import { Route as featuresOutfitsRouteImport } from './routes/(features)/outfits'
+import { Route as featuresFavoritesRouteImport } from './routes/(features)/favorites'
 
 const legalRouteRoute = legalRouteRouteImport.update({
   id: '/(legal)',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
+const featuresRouteRoute = featuresRouteRouteImport.update({
+  id: '/(features)',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const featuresIndexRoute = featuresIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => featuresRouteRoute,
 } as any)
 const AuthSignInRoute = AuthSignInRouteImport.update({
   id: '/auth/sign-in',
@@ -39,43 +47,86 @@ const legalPrivacyPolicyRoute = legalPrivacyPolicyRouteImport.update({
   path: '/privacy-policy',
   getParentRoute: () => legalRouteRoute,
 } as any)
+const featuresWardrobeRoute = featuresWardrobeRouteImport.update({
+  id: '/wardrobe',
+  path: '/wardrobe',
+  getParentRoute: () => featuresRouteRoute,
+} as any)
+const featuresOutfitsRoute = featuresOutfitsRouteImport.update({
+  id: '/outfits',
+  path: '/outfits',
+  getParentRoute: () => featuresRouteRoute,
+} as any)
+const featuresFavoritesRoute = featuresFavoritesRouteImport.update({
+  id: '/favorites',
+  path: '/favorites',
+  getParentRoute: () => featuresRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/favorites': typeof featuresFavoritesRoute
+  '/outfits': typeof featuresOutfitsRoute
+  '/wardrobe': typeof featuresWardrobeRoute
   '/privacy-policy': typeof legalPrivacyPolicyRoute
   '/terms-of-service': typeof legalTermsOfServiceRoute
   '/auth/sign-in': typeof AuthSignInRoute
+  '/': typeof featuresIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
+  '/favorites': typeof featuresFavoritesRoute
+  '/outfits': typeof featuresOutfitsRoute
+  '/wardrobe': typeof featuresWardrobeRoute
   '/privacy-policy': typeof legalPrivacyPolicyRoute
   '/terms-of-service': typeof legalTermsOfServiceRoute
   '/auth/sign-in': typeof AuthSignInRoute
+  '/': typeof featuresIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
+  '/(features)': typeof featuresRouteRouteWithChildren
   '/(legal)': typeof legalRouteRouteWithChildren
+  '/(features)/favorites': typeof featuresFavoritesRoute
+  '/(features)/outfits': typeof featuresOutfitsRoute
+  '/(features)/wardrobe': typeof featuresWardrobeRoute
   '/(legal)/privacy-policy': typeof legalPrivacyPolicyRoute
   '/(legal)/terms-of-service': typeof legalTermsOfServiceRoute
   '/auth/sign-in': typeof AuthSignInRoute
+  '/(features)/': typeof featuresIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/privacy-policy' | '/terms-of-service' | '/auth/sign-in'
+  fullPaths:
+    | '/favorites'
+    | '/outfits'
+    | '/wardrobe'
+    | '/privacy-policy'
+    | '/terms-of-service'
+    | '/auth/sign-in'
+    | '/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/privacy-policy' | '/terms-of-service' | '/auth/sign-in'
+  to:
+    | '/favorites'
+    | '/outfits'
+    | '/wardrobe'
+    | '/privacy-policy'
+    | '/terms-of-service'
+    | '/auth/sign-in'
+    | '/'
   id:
     | '__root__'
-    | '/'
+    | '/(features)'
     | '/(legal)'
+    | '/(features)/favorites'
+    | '/(features)/outfits'
+    | '/(features)/wardrobe'
     | '/(legal)/privacy-policy'
     | '/(legal)/terms-of-service'
     | '/auth/sign-in'
+    | '/(features)/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  featuresRouteRoute: typeof featuresRouteRouteWithChildren
   legalRouteRoute: typeof legalRouteRouteWithChildren
   AuthSignInRoute: typeof AuthSignInRoute
 }
@@ -89,12 +140,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof legalRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
+    '/(features)': {
+      id: '/(features)'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof featuresRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(features)/': {
+      id: '/(features)/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof featuresIndexRouteImport
+      parentRoute: typeof featuresRouteRoute
     }
     '/auth/sign-in': {
       id: '/auth/sign-in'
@@ -117,8 +175,47 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof legalPrivacyPolicyRouteImport
       parentRoute: typeof legalRouteRoute
     }
+    '/(features)/wardrobe': {
+      id: '/(features)/wardrobe'
+      path: '/wardrobe'
+      fullPath: '/wardrobe'
+      preLoaderRoute: typeof featuresWardrobeRouteImport
+      parentRoute: typeof featuresRouteRoute
+    }
+    '/(features)/outfits': {
+      id: '/(features)/outfits'
+      path: '/outfits'
+      fullPath: '/outfits'
+      preLoaderRoute: typeof featuresOutfitsRouteImport
+      parentRoute: typeof featuresRouteRoute
+    }
+    '/(features)/favorites': {
+      id: '/(features)/favorites'
+      path: '/favorites'
+      fullPath: '/favorites'
+      preLoaderRoute: typeof featuresFavoritesRouteImport
+      parentRoute: typeof featuresRouteRoute
+    }
   }
 }
+
+interface featuresRouteRouteChildren {
+  featuresFavoritesRoute: typeof featuresFavoritesRoute
+  featuresOutfitsRoute: typeof featuresOutfitsRoute
+  featuresWardrobeRoute: typeof featuresWardrobeRoute
+  featuresIndexRoute: typeof featuresIndexRoute
+}
+
+const featuresRouteRouteChildren: featuresRouteRouteChildren = {
+  featuresFavoritesRoute: featuresFavoritesRoute,
+  featuresOutfitsRoute: featuresOutfitsRoute,
+  featuresWardrobeRoute: featuresWardrobeRoute,
+  featuresIndexRoute: featuresIndexRoute,
+}
+
+const featuresRouteRouteWithChildren = featuresRouteRoute._addFileChildren(
+  featuresRouteRouteChildren,
+)
 
 interface legalRouteRouteChildren {
   legalPrivacyPolicyRoute: typeof legalPrivacyPolicyRoute
@@ -135,7 +232,7 @@ const legalRouteRouteWithChildren = legalRouteRoute._addFileChildren(
 )
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  featuresRouteRoute: featuresRouteRouteWithChildren,
   legalRouteRoute: legalRouteRouteWithChildren,
   AuthSignInRoute: AuthSignInRoute,
 }

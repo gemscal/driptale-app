@@ -1,6 +1,7 @@
 import { useAuth } from "@/auth/auth-context";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { Link } from "@tanstack/react-router";
 
 function getAuthErrorMessage(error: string): string {
   if (error.includes("popup-closed-by-user")) return "Sign-in was cancelled.";
@@ -88,6 +89,18 @@ export function SignIn() {
           )}
         </div>
       </section>
+
+      <p className="absolute bottom-4 text-center text-xs text-muted-foreground [&>a]:text-primary [&>a]:hover:underline [&>a]:underline-offset-4 z-10">
+        By signing in, you agree to our{" "}
+        <Link to="/terms-of-service" className="hover:underline">
+          Terms of Service
+        </Link>{" "}
+        and{" "}
+        <Link to="/privacy-policy" className="hover:underline">
+          Privacy Policy
+        </Link>
+        .
+      </p>
     </div>
   );
 }
