@@ -8,7 +8,7 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   return (
-    <ThemeProvider defaultTheme="light" storageKey="driptale-theme">
+    <ThemeProvider defaultTheme="dark" storageKey="driptale-theme">
       <RequireAuth
         publicPaths={["/privacy-policy", "/terms-of-service"]}
         guestOnlyPaths={["/auth/sign-in"]}
