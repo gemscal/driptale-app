@@ -56,7 +56,7 @@ export function SignIn() {
             Welcome to Driptale
           </h1>
           <p className="text-muted-foreground mt-2 text-sm md:text-base">
-            Sign in to access your wardrobe.
+            Sign in to access your virtual wardrobe.
           </p>
         </div>
 

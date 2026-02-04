@@ -25,7 +25,6 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarRail,
 } from "@/components/ui/sidebar";
 import type { User } from "firebase/auth";
 
@@ -69,9 +68,9 @@ export function AppSidebar({
       <SidebarHeader className="border-sidebar-border h-16 border-b">
         <NavUser
           user={{
-            name: user.displayName ?? "",
-            email: user.email ?? "",
-            avatar: user.photoURL ?? "",
+            name: user.displayName!,
+            email: user.email!,
+            avatar: user.photoURL!,
           }}
         />
       </SidebarHeader>
@@ -138,7 +137,7 @@ export function AppSidebar({
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
-      <SidebarRail />
+      {/* <SidebarRail /> */}
     </Sidebar>
   );
 }
