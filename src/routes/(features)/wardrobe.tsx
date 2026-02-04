@@ -1,5 +1,12 @@
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
+import { ImageAdd01Icon } from '@hugeicons/core-free-icons'
+import { HugeiconsIcon } from '@hugeicons/react'
+import { createFileRoute } from '@tanstack/react-router'
+import { useState } from 'react'
+
+import { WARDROBE_CATEGORIES, WARDROBE_CATEGORY_LIST } from '@/lib/constant'
+
+import { Button } from '@/components/ui/button'
+import { Separator } from '@/components/ui/separator'
 import {
   Sheet,
   SheetContent,
@@ -7,25 +14,20 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import WardrobeForm from "@/components/wardrobe/wardrobe-form";
-import { WARDROBE_CATEGORIES, WARDROBE_CATEGORY_LIST } from "@/lib/constant";
-import { ImageAdd01Icon } from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+} from '@/components/ui/sheet'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import WardrobeForm from '@/components/wardrobe/wardrobe-form'
 
-export const Route = createFileRoute("/(features)/wardrobe")({
+export const Route = createFileRoute('/(features)/wardrobe')({
   component: RouteComponent,
-});
+})
 
 function RouteComponent() {
-  const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false);
+  const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false)
 
   const handleSheetClose = () => {
-    setIsSheetOpen(false);
-  };
+    setIsSheetOpen(false)
+  }
 
   const renderContent = () => {
     // if (isLoading) {
@@ -69,8 +71,8 @@ function RouteComponent() {
           accessories
         </TabsContent>
       </>
-    );
-  };
+    )
+  }
 
   return (
     <div className="space-y-6">
@@ -82,7 +84,7 @@ function RouteComponent() {
       </div>
 
       <Tabs defaultValue={WARDROBE_CATEGORIES.HEADWEAR}>
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <TabsList>
             {WARDROBE_CATEGORY_LIST.map((category) => (
               <TabsTrigger key={category.key} value={category.key}>
@@ -116,5 +118,5 @@ function RouteComponent() {
         {renderContent()}
       </Tabs>
     </div>
-  );
+  )
 }

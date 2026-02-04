@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { HugeiconsIcon } from "@hugeicons/react";
 import {
   CheckmarkBadge01Icon,
   CreditCardIcon,
@@ -7,25 +5,20 @@ import {
   Notification01Icon,
   UnfoldMoreIcon,
   UserIcon,
-} from "@hugeicons/core-free-icons";
+} from '@hugeicons/core-free-icons'
+import { HugeiconsIcon } from '@hugeicons/react'
+import { useState } from 'react'
 
-import { useAuth } from "@/auth/auth-context";
-import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  useSidebar,
-} from "@/components/ui/sidebar";
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
   DialogDescription,
   DialogFooter,
-} from "@/components/ui/dialog";
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -34,25 +27,32 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu'
+import {
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  useSidebar,
+} from '@/components/ui/sidebar'
+
+import { useAuth } from '@/auth/auth-context'
 
 export function NavUser({
   user,
 }: {
   user: {
-    name?: string;
-    email?: string;
-    avatar?: string;
-  };
+    name?: string
+    email?: string
+    avatar?: string
+  }
 }) {
-  const { signOut } = useAuth();
-  const { isMobile } = useSidebar();
-  const [isSignOutDialogOpen, setIsSignOutDialogOpen] =
-    useState<boolean>(false);
+  const { signOut } = useAuth()
+  const { isMobile } = useSidebar()
+  const [isSignOutDialogOpen, setIsSignOutDialogOpen] = useState<boolean>(false)
 
   const handleSignOutClick = () => {
-    setIsSignOutDialogOpen(true);
-  };
+    setIsSignOutDialogOpen(true)
+  }
 
   return (
     <>
@@ -83,7 +83,7 @@ export function NavUser({
             </DropdownMenuTrigger>
             <DropdownMenuContent
               className="w-(--radix-dropdown-menu-trigger-width) min-w-54 rounded-lg"
-              side={isMobile ? "bottom" : "right"}
+              side={isMobile ? 'bottom' : 'right'}
               align="start"
               sideOffset={4}
             >
@@ -101,7 +101,7 @@ export function NavUser({
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
-                <DropdownMenuItem className="text-primary hover:bg-linear-to-r from-primary/20 to-primary/80">
+                <DropdownMenuItem className="text-primary from-primary/20 to-primary/80 hover:bg-linear-to-r">
                   <HugeiconsIcon
                     icon={CheckmarkBadge01Icon}
                     strokeWidth={2}
@@ -164,5 +164,5 @@ export function NavUser({
         </DialogContent>
       </Dialog>
     </>
-  );
+  )
 }

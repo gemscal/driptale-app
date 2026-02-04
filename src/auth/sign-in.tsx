@@ -1,24 +1,27 @@
-import { useAuth } from "@/auth/auth-context";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import { Link } from "@tanstack/react-router";
+import { Link } from '@tanstack/react-router'
+
+import { cn } from '@/lib/utils'
+
+import { Button } from '@/components/ui/button'
+
+import { useAuth } from '@/auth/auth-context'
 
 function getAuthErrorMessage(error: string): string {
-  if (error.includes("popup-closed-by-user")) return "Sign-in was cancelled.";
-  if (error.includes("popup-blocked"))
-    return "Popup was blocked. Allow popups and try again.";
-  if (error.includes("network")) return "Network error. Check your connection.";
-  if (error.includes("cancelled")) return "Sign-in was cancelled.";
-  return error;
+  if (error.includes('popup-closed-by-user')) return 'Sign-in was cancelled.'
+  if (error.includes('popup-blocked'))
+    return 'Popup was blocked. Allow popups and try again.'
+  if (error.includes('network')) return 'Network error. Check your connection.'
+  if (error.includes('cancelled')) return 'Sign-in was cancelled.'
+  return error
 }
 
 export function SignIn() {
-  const { signInWithGoogle, error, clearError } = useAuth();
+  const { signInWithGoogle, error, clearError } = useAuth()
 
   const handleSignIn = async () => {
-    clearError();
-    await signInWithGoogle();
-  };
+    clearError()
+    await signInWithGoogle()
+  }
 
   return (
     <div className="bg-[radial-gradient(35%_80%_at_50%_0%,--theme(--color-foreground/.1),transparent)] relative flex size-full min-h-screen items-center justify-center">
@@ -26,9 +29,9 @@ export function SignIn() {
       <div
         aria-hidden="true"
         className={cn(
-          "absolute inset-0 -z-10 size-full",
-          "bg-[radial-gradient(color-mix(in_oklab,--theme(--color-foreground/.2)30%,transparent)_1px,transparent_1px)]",
-          "bg-size-[12px_12px]"
+          'absolute inset-0 -z-10 size-full',
+          'bg-[radial-gradient(color-mix(in_oklab,--theme(--color-foreground/.2)30%,transparent)_1px,transparent_1px)]',
+          'bg-size-[12px_12px]'
         )}
       />
 
@@ -62,7 +65,7 @@ export function SignIn() {
 
         <div className="flex flex-col items-center gap-4">
           <Button onClick={handleSignIn} size="lg" className="w-[300px] p-4">
-            <svg className="w-5 h-5 mr-1" viewBox="0 0 24 24">
+            <svg className="mr-1 h-5 w-5" viewBox="0 0 24 24">
               <path
                 fill="#4285F4"
                 d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -83,24 +86,24 @@ export function SignIn() {
             Continue with Google
           </Button>
           {error && (
-            <p className="text-sm text-destructive">
+            <p className="text-destructive text-sm">
               {getAuthErrorMessage(error)}
             </p>
           )}
         </div>
       </section>
 
-      <p className="absolute bottom-4 text-center text-xs text-muted-foreground [&>a]:text-primary [&>a]:hover:underline [&>a]:underline-offset-4 z-10">
-        By signing in, you agree to our{" "}
+      <p className="text-muted-foreground [&>a]:text-primary absolute bottom-4 z-10 text-center text-xs [&>a]:underline-offset-4 [&>a]:hover:underline">
+        By signing in, you agree to our{' '}
         <Link to="/terms-of-service" className="hover:underline">
           Terms of Service
-        </Link>{" "}
-        and{" "}
+        </Link>{' '}
+        and{' '}
         <Link to="/privacy-policy" className="hover:underline">
           Privacy Policy
         </Link>
         .
       </p>
     </div>
-  );
+  )
 }

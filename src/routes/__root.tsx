@@ -1,17 +1,19 @@
-import { ThemeProvider } from "@/components/theme-provider";
-import { Outlet, createRootRoute } from "@tanstack/react-router";
-import { RequireAuth } from "@/auth/require-auth";
+import { Outlet, createRootRoute } from '@tanstack/react-router'
+
+import { ThemeProvider } from '@/components/theme-provider'
+
+import { RequireAuth } from '@/auth/require-auth'
 
 export const Route = createRootRoute({
   component: RootComponent,
-});
+})
 
 function RootComponent() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="driptale-theme">
       <RequireAuth
-        publicPaths={["/privacy-policy", "/terms-of-service"]}
-        guestOnlyPaths={["/auth/sign-in"]}
+        publicPaths={['/privacy-policy', '/terms-of-service']}
+        guestOnlyPaths={['/auth/sign-in']}
         signInPath="/auth/sign-in"
       >
         <main>
@@ -19,5 +21,5 @@ function RootComponent() {
         </main>
       </RequireAuth>
     </ThemeProvider>
-  );
+  )
 }

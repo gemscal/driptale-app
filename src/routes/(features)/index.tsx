@@ -1,8 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute("/(features)/")({
+export const Route = createFileRoute('/(features)/')({
   component: GenerateOutfitPage,
-});
+})
 
 function GenerateOutfitPage() {
   return (
@@ -14,9 +14,9 @@ function GenerateOutfitPage() {
         </p>
       </div>
       {/* Content will go here */}
-      <div className="rounded-lg border border-dashed p-8 text-center text-muted-foreground">
+      <div className="text-muted-foreground rounded-lg border border-dashed p-8 text-center">
         Outfit generation form will be implemented here.
       </div>
     </div>
-  );
+  )
 }

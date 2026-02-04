@@ -1,19 +1,20 @@
-import * as React from "react";
-import { Link } from "@tanstack/react-router";
-import { HugeiconsIcon } from "@hugeicons/react";
 import {
   AiImageIcon,
   Bug02Icon,
   BulbIcon,
+  ClipboardIcon,
+  FavouriteIcon,
   Megaphone01Icon,
   PackageIcon,
   TShirtIcon,
-  ClipboardIcon,
-  FavouriteIcon,
-} from "@hugeicons/core-free-icons";
+} from '@hugeicons/core-free-icons'
+import { HugeiconsIcon } from '@hugeicons/react'
+import { Link } from '@tanstack/react-router'
+import type { User } from 'firebase/auth'
+import * as React from 'react'
 
-import { NavUser } from "@/components/sidebar/user-nav";
-import { Button } from "@/components/ui/button";
+import { NavUser } from '@/components/sidebar/user-nav'
+import { Button } from '@/components/ui/button'
 import {
   Sidebar,
   SidebarContent,
@@ -25,39 +26,38 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar";
-import type { User } from "firebase/auth";
+} from '@/components/ui/sidebar'
 
 const menuItems = {
   navMain: [
     {
-      title: "Platform",
-      url: "#",
+      title: 'Platform',
+      url: '#',
       items: [
         {
-          title: "Generate Outfit",
-          url: "/",
+          title: 'Generate Outfit',
+          url: '/',
           icon: <HugeiconsIcon icon={AiImageIcon} strokeWidth={2} />,
         },
         {
-          title: "Wardrobe",
-          url: "/wardrobe",
+          title: 'Wardrobe',
+          url: '/wardrobe',
           icon: <HugeiconsIcon icon={PackageIcon} strokeWidth={2} />,
         },
         {
-          title: "Outfits",
-          url: "/outfits",
+          title: 'Outfits',
+          url: '/outfits',
           icon: <HugeiconsIcon icon={TShirtIcon} strokeWidth={2} />,
         },
         {
-          title: "Favorites",
-          url: "/favorites",
+          title: 'Favorites',
+          url: '/favorites',
           icon: <HugeiconsIcon icon={FavouriteIcon} strokeWidth={2} />,
         },
       ],
     },
   ],
-};
+}
 
 export function AppSidebar({
   user,
@@ -86,7 +86,7 @@ export function AppSidebar({
                       <Link
                         to={item.url}
                         activeProps={{
-                          className: "bg-sidebar-accent",
+                          className: 'bg-sidebar-accent',
                         }}
                       >
                         {item.icon}
@@ -139,5 +139,5 @@ export function AppSidebar({
       </SidebarFooter>
       {/* <SidebarRail /> */}
     </Sidebar>
-  );
+  )
 }

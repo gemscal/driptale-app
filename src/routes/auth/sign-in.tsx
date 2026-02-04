@@ -1,33 +1,34 @@
-import { useEffect } from "react";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { SignIn } from "@/auth/sign-in";
-import { useAuth } from "@/auth/auth-context";
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { useEffect } from 'react'
 
-export const Route = createFileRoute("/auth/sign-in")({
+import { useAuth } from '@/auth/auth-context'
+import { SignIn } from '@/auth/sign-in'
+
+export const Route = createFileRoute('/auth/sign-in')({
   component: SignInRouteComponent,
-});
+})
 
 function SignInRouteComponent() {
-  const { user, loading } = useAuth();
-  const navigate = useNavigate();
+  const { user, loading } = useAuth()
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (!loading && user) {
-      navigate({ to: "/" });
+      navigate({ to: '/' })
     }
-  }, [user, loading, navigate]);
+  }, [user, loading, navigate])
 
   if (loading) {
     return (
       <div className="flex min-h-[50vh] items-center justify-center">
-        <p className="text-sm text-muted-foreground">Loading...</p>
+        <p className="text-muted-foreground text-sm">Loading...</p>
       </div>
-    );
+    )
   }
 
   if (user) {
-    return null;
+    return null
   }
 
-  return <SignIn />;
+  return <SignIn />
 }
