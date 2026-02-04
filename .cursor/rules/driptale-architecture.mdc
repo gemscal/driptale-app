@@ -1,3 +1,12 @@
 ---
+description: Core architecture principles for the Driptale app
 alwaysApply: true
 ---
+
+# Driptale App Architecture
+
+## Core Principles
+
+1. **Single Responsibility**: Each component, hook, store has one clear purpose
+2. **Composition Over Complexity**: Break down complex logic into smaller pieces
+3. **Type Safety First**: TypeScript interfaces for all props, state, return types
