@@ -9,6 +9,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import WardrobeForm from "@/components/wardrobe/wardrobe-form";
 import { WARDROBE_CATEGORIES, WARDROBE_CATEGORY_LIST } from "@/lib/constant";
 import { ImageAdd01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -104,10 +105,10 @@ function RouteComponent() {
                 </SheetDescription>
               </SheetHeader>
 
-              {/* <WardrobeForm
+              <WardrobeForm
                 onSuccess={handleSheetClose}
                 onCancel={handleSheetClose}
-              /> */}
+              />
             </SheetContent>
           </Sheet>
         </div>

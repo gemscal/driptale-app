@@ -1,12 +1,12 @@
-import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { useAuth } from "@/auth/auth-context";
+import { AppSidebar } from "@/components/sidebar/app-sidebar";
+import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/sidebar/app-sidebar";
-import { Separator } from "@/components/ui/separator";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/(features)")({
   component: FeaturesLayout,
