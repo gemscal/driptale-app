@@ -16,6 +16,14 @@ function matchesPath(pathname: string, paths: string[]): boolean {
   return paths.some((p) => pathname === p || pathname.startsWith(`${p}/`))
 }
 
+function LoadingScreen() {
+  return (
+    <div className="flex min-h-[50vh] items-center justify-center">
+      <p className="text-muted-foreground text-sm">Loading...</p>
+    </div>
+  )
+}
+
 export function RequireAuth({
   children,
   publicPaths = [],
@@ -30,53 +38,45 @@ export function RequireAuth({
   const isPublicPath = matchesPath(pathname, publicPaths)
   const isGuestOnlyPath = matchesPath(pathname, guestOnlyPaths)
 
-  useEffect(() => {
-    if (loading) return
+  // Determine if we need to redirect
+  const shouldRedirectToSignIn =
+    !loading && !user && !isPublicPath && !isGuestOnlyPath
+  const shouldRedirectToHome = !loading && user && isGuestOnlyPath
 
-    if (user && isGuestOnlyPath) {
+  useEffect(() => {
+    if (shouldRedirectToHome) {
       navigate({ to: '/' })
       return
     }
 
-    if (!user && !isPublicPath && !isGuestOnlyPath) {
+    if (shouldRedirectToSignIn) {
       navigate({ to: signInPath })
     }
-  }, [
-    user,
-    loading,
-    isPublicPath,
-    isGuestOnlyPath,
-    pathname,
-    navigate,
-    signInPath,
-  ])
+  }, [shouldRedirectToHome, shouldRedirectToSignIn, navigate, signInPath])
 
+  // Public paths: render immediately without any auth checks
   if (isPublicPath) {
     return <>{children}</>
   }
 
+  // Show loading while auth state is being determined
+  if (loading) {
+    return <LoadingScreen />
+  }
+
+  // Guest-only paths (e.g., sign-in): only render for unauthenticated users
   if (isGuestOnlyPath) {
-    if (loading) {
-      return (
-        <div className="flex min-h-[50vh] items-center justify-center">
-          <p className="text-muted-foreground text-sm">Loading...</p>
-        </div>
-      )
+    // If user is logged in, show loading while redirecting to home
+    if (user) {
+      return <LoadingScreen />
     }
-    if (user) return null
     return <>{children}</>
   }
 
-  if (loading) {
-    return (
-      <div className="flex min-h-[50vh] items-center justify-center">
-        <p className="text-muted-foreground text-sm">Loading...</p>
-      </div>
-    )
-  }
-
+  // Protected routes: only render for authenticated users
+  // If not authenticated, show loading while redirecting to sign-in
   if (!user) {
-    return null
+    return <LoadingScreen />
   }
 
   return <>{children}</>
